@@ -1,0 +1,1 @@
+console.log("JavaScript funcionando desde el servidor Python");
