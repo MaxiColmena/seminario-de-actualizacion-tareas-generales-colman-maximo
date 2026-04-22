@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modelo de Toxicidad</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+</head>
+
+<body>
+
+<h2>Detector de Toxicidad</h2>
+<button onclick="analizar()">Analizar frases</button>
+
+<script>
+function analizar() {
+    const threshold = 0.9;
+
+    toxicity.load(threshold).then(model => {
+        const sentences = [
+            "Eres una buena persona",
+            "Te odio idiota"
+        ];
+
+        model.classify(sentences).then(predictions => {
+            console.log(predictions);
+            alert("Revisá la consola (F12)");
+        });
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modelos de Aprendizaje Automático</title>
+
+    <!-- TensorFlow -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+
+    <!-- Modelos -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background: #f4f4f4;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        img {
+            max-width: 300px;
+            margin-top: 10px;
+        }
+        textarea {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🧠 Modelos de Machine Learning en JavaScript</h1>
+
+<hr>
+
+<h2>Explicación</h2>
+<p>
+Este proyecto utiliza TensorFlow.js para ejecutar modelos de Machine Learning en el navegador.
+Se implementan dos modelos preentrenados:
+- Modelo de toxicidad: analiza texto y detecta lenguaje ofensivo.
+- Modelo MobileNet: clasifica imágenes y permite detectar camiones.
+No se entrenan modelos, solo se consumen mediante JavaScript.
+</p>
+
+<p><b>Nota:</b> El modelo de toxicidad funciona mejor en inglés, por lo que los resultados en español pueden no ser precisos.</p>
+
+<!-- TOXICIDAD -->
+<div class="box">
+    <h2>Detector de Toxicidad</h2>
+    <textarea id="texto" rows="4" cols="50" placeholder="Escribe algo..."></textarea><br>
+    <button onclick="analizarTexto()">Analizar</button>
+    <button onclick="limpiarTexto()">Limpiar</button>
+
+    <h3>Resultado:</h3>
+    <div id="resultadoTexto"></div>
+</div>
+
+<!-- CAMION -->
+<div class="box">
+    <h2>Detector de Camiones 🚛</h2>
+    <input type="file" id="imagenInput" accept="image/*"><br>
+    <img id="preview">
+
+    <br>
+    <button onclick="analizarImagen()">Analizar Imagen</button>
+
+    <h3>Resultado:</h3>
+    <div id="resultadoImagen"></div>
+</div>
+
+<script>
+let modeloToxicidad;
+let modeloImagen;
+
+// Cargar modelos al inicio
+async function cargarModelos() {
+    document.getElementById("resultadoTexto").innerHTML = "Cargando modelo...";
+    modeloToxicidad = await toxicity.load(0.9);
+    modeloImagen = await mobilenet.load();
+    document.getElementById("resultadoTexto").innerHTML = "";
+    console.log("Modelos cargados");
+}
+
+cargarModelos();
+
+// TOXICIDAD
+async function analizarTexto() {
+    const texto = document.getElementById("texto").value;
+
+    if (!texto) {
+        alert("Escribe algo primero");
+        return;
+    }
+
+    const predicciones = await modeloToxicidad.classify([texto]);
+
+    let resultado = "";
+
+    predicciones.forEach(p => {
+        resultado += `${p.label} (${(p.results[0].probabilities[1] * 100).toFixed(2)}%)<br>`;
+    });
+
+    document.getElementById("resultadoTexto").innerHTML = resultado;
+}
+
+// LIMPIAR TEXTO
+function limpiarTexto() {
+    document.getElementById("texto").value = "";
+    document.getElementById("resultadoTexto").innerHTML = "";
+}
+
+// PREVIEW IMAGEN
+document.getElementById("imagenInput").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    const img = document.getElementById("preview");
+
+    if (file) {
+        img.src = URL.createObjectURL(file);
+    }
+});
+
+// IMAGEN
+async function analizarImagen() {
+    const img = document.getElementById("preview");
+
+    if (!img.src) {
+        alert("Sube una imagen primero");
+        return;
+    }
+
+    const predicciones = await modeloImagen.classify(img);
+
+    let resultado = "";
+    let esCamion = false;
+
+    predicciones.slice(0, 3).forEach(p => {
+        resultado += p.className + " (" + (p.probability * 100).toFixed(2) + "%)<br>";
+
+        if (p.className.includes("truck")) {
+            esCamion = true;
+        }
+    });
+
+    if (esCamion) {
+        resultado += "<br>🚛 CAMIÓN DETECTADO!";
+    }
+
+    document.getElementById("resultadoImagen").innerHTML = resultado;
+}
+</script>
+
+</body>
+</html>
