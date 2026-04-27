@@ -1,0 +1,255 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --header-bg: #1a1b2e;
+    --card-bg: #f8f9fc;
+    --text-primary: #1a1b2e;
+    --text-secondary: #6b7280;
+    --purple-gradient: linear-gradient(90deg, #6b46c1 0%, #805ad5 100%);
+    --teal-gradient: linear-gradient(90deg, #4fd1c5 0%, #38b2ac 100%);
+    --info-bg: #f0f4ff;
+    --info-text: #2563eb;
+    --success-bg: #d1fae5;
+    --success-text: #059669;
+    --warning-bg: #fef3c7;
+    --warning-text: #d97706;
+    --dark-bg: #0f172a;
+    --accent-yellow: #fbbf24;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.3));
+}
+
+.glass-card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+.header {
+    background: var(--header-bg);
+    padding: 30px 20px;
+    text-align: center;
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.equation-badge {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.equation-badge i {
+    font-size: 14px;
+}
+
+.subtitle {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Main Content */
+.content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: var(--card-bg);
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.card-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.icon-purple { color: #805ad5; }
+.icon-yellow { color: var(--accent-yellow); }
+
+.info-box {
+    background: var(--info-bg);
+    color: var(--info-text);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.status-badge {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    font-weight: 600;
+}
+
+.status-badge.trained {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-purple { background: var(--purple-gradient); box-shadow: 0 4px 14px rgba(107, 70, 193, 0.4); }
+.btn-teal { background: var(--teal-gradient); box-shadow: 0 4px 14px rgba(79, 209, 197, 0.4); }
+
+.btn:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+/* Prediction Styles */
+.input-group {
+    margin-bottom: 16px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #805ad5;
+}
+
+.result-container {
+    margin-top: 20px;
+    background: var(--dark-bg);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    color: white;
+}
+
+.result-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    margin-bottom: 12px;
+}
+
+.prediction-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent-yellow);
+    margin-bottom: 12px;
+}
+
+.result-formula {
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-top: 1px solid #edf2f7;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.training .info-box i {
+    animation: pulse 1s infinite;
+}
