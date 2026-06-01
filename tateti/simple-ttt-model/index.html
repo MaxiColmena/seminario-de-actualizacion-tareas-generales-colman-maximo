@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tateti Alienígena Inteligente - Red Neural</title>
+    <!-- load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.0.0/dist/tf.min.js"></script>
+    <!-- Custom styling -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Tateti Alienígena</h1>
+      <div class="subtitle">Cerebro de Red Neural Adaptativa</div>
+    </header>
+
+    <main>
+      <!-- Left side: Board and controls -->
+      <div class="game-container">
+        <!-- Scoreboard -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Marcador de Combate</span>
+            <button class="btn btn-secondary" id="btnResetScores" style="padding: 0.25rem 0.75rem; font-size: 0.7rem;">Reiniciar Historial</button>
+          </div>
+          <div class="scoreboard">
+            <div class="score-card player">
+              <span class="score-label">Humano (🛸)</span>
+              <span class="score-val" id="scorePlayer">0</span>
+            </div>
+            <div class="score-card ai">
+              <span class="score-label">IA Alien (👽)</span>
+              <span class="score-val" id="scoreAI">0</span>
+            </div>
+            <div class="score-card draws">
+              <span class="score-label">Empates</span>
+              <span class="score-val" id="scoreDraws">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tic-Tac-Toe Board -->
+        <div class="board-wrapper">
+          <div class="board" id="board">
+            <!-- Cells generated dynamically in JS -->
+          </div>
+        </div>
+
+        <!-- Status Alerts -->
+        <div class="panel" style="padding: 1rem;">
+          <div class="status-alert" id="statusAlert">
+            Iniciando enlace neural...
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <button class="btn" id="btnRestart">
+            <span>Iniciar Partida</span>
+          </button>
+          <div class="btn switch-container" id="switchVision">
+            <div class="switch-track">
+              <div class="switch-thumb"></div>
+            </div>
+            <span class="switch-label">Visión IA</span>
+          </div>
+          <button class="btn btn-warning" id="btnResetMemory">
+            <span>Borrar Cerebro IA</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right side: Neural Analysis and Logs -->
+      <div class="right-container">
+        <!-- Neural Log -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Bitácora de Aprendizaje Neural</span>
+            <div class="sound-visualizer" id="visualizer">
+              <div class="vis-bar"></div>
+              <div class="vis-bar"></div>
+              <div class="vis-bar"></div>
+              <div class="vis-bar"></div>
+              <div class="vis-bar"></div>
+            </div>
+          </div>
+          <div class="console-log" id="consoleLog">
+            <!-- Simulated console lines append here -->
+          </div>
+        </div>
+
+        <!-- Real-time probability chart -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Análisis Táctico en Tiempo Real</span>
+          </div>
+          <div class="prob-chart" id="probChart">
+            <!-- Real-time bars go here -->
+          </div>
+        </div>
+
+        <!-- Match history log -->
+        <div class="panel">
+          <div class="panel-header">
+            <span>Análisis de Partida (Fin de Juego)</span>
+          </div>
+          <div class="history-list" id="historyList">
+            <div class="history-empty-message">Esperando que termine la primera partida...</div>
+          </div>
+        </div>
+
+        <!-- Model architecture reference -->
+        <div class="panel" style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+          <div class="panel-header" style="width: 100%;">
+            <span>Arquitectura del Cerebro Neural</span>
+          </div>
+          <div class="model-image-container">
+            <img src="ttt_states.jpg" alt="Neural Network States diagram" />
+            <span>Topología: Entrada[9] &rarr; Oculta1[64] &rarr; Oculta2[64] &rarr; Salida[9]</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Custom game scripts -->
+    <script src="app.js"></script>
+  </body>
+</html>
